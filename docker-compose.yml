@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  web:
+    image: nginx
+    container_name: pagina-pruebas
+    ports:
+      - "8080:80"
+    volumes:
+      - ./tarea_despliegueWebEstatica:/usr/share/nginx/html:ro
+    restart: unless-stopped
+
+  sftp:
+    image: atmoz/sftp
+    container_name: server_ftp
+    ports:
+      - "2222:22"
+    volumes:
+      - ./tarea_despliegueWebEstatica:/home/soyElAdmin/upload
+    command: soyElAdmin:masSeguraImposible1234:1001
+    restart: unless-stopped
+
