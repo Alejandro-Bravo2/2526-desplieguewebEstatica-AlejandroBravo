@@ -56,23 +56,23 @@ https://github.com/Alejandro-Bravo2/2526-desplieguewebEstatica-AlejandroBravo/bl
 Primero me conecté al servidor SFTP usando FileZilla para subir los archivos de las webs:
 
 **Transferencia del primer archivo:**
-![alt text](image-4.png)
+![alt text](assets/image-4.png)
 
 **Transferencia del archivo index.html:**
-![alt text](image-5.png)
+![alt text](assets/image-5.png)
 
 **Archivos en local después de la transferencia con FileZilla:**
-![alt text](image-6.png)
+![alt text](assets/image-6.png)
 
 ### 2. Verificación de las webs
 
 Una vez subidos los archivos, comprobé que todo funcionaba correctamente desde el navegador.
 
 **Página principal (CloudAcademy) en http://localhost:8080:**
-![alt text](image-7.png)
+![alt text](assets/image-7.png)
 
 **Página del reloj en http://localhost:8080/reloj/:**
-![alt text](image-8.png)
+![alt text](assets/image-8.png)
 
 ## Conclusión
 
@@ -191,7 +191,7 @@ He mapeado el puerto 443 del contenedor al puerto 443 del host (mi máquina). As
 ### Configuración personalizada de Nginx para SSL
 
 Redirección automatica del puerto 80 al 443.
-![alt text](image-9.png)
+![alt text](assets/image-9.png)
 
 Fichero default.conf:
 
@@ -215,34 +215,8 @@ Explicación de cada directiva importante del default.conf:
 
 - **access_log / error_log**: Definen dónde se guardan los registros de accesos y errores del servidor. Útil para depurar problemas.
 
-```nginx
-# Bloque 1: Redirección HTTP a HTTPS
-server {
-    listen 80;
-    listen [::]:80;
-    server_name _;
+https://github.com/Alejandro-Bravo2/2526-desplieguewebEstatica-AlejandroBravo/blob/5f605ab2f2db9f082d8103ea46f668de1b9eede7/default.conf#L2-L26
 
-    return 301 https://$host:443$request_uri; # Sirve para indicar que responda a peticiones dirigidas al localhost
-}
-
-
-server {
-    listen 443 ssl;
-    listen [::]:443 ssl; # Para escuchar en ipv6
-    server_name _; # Indica la dirección a la que responderá el servidor
-
-    ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
-    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
-
-
-    root /usr/share/nginx/html;
-    index index.html index.htm;
-
-
-    access_log /var/log/nginx/access_ssl.log;
-    error_log /var/log/nginx/error_ssl.log;
-}
-```
 
 ---
 
@@ -257,25 +231,25 @@ server {
 4	Contenido Web: Se visualiza la web de "Cloud Academy" en lugar de la página por defecto de Nginx.	La misma captura anterior sirve, pero debe verse claramente el diseño de la web importada.
 
 #### Captura de servicio nginx activo:
-![alt text](image-10.png)
+![alt text](assets/image-10.png)
 
 #### Captura del directorio de configuración dentro del contenedor:
 
-![alt text](image-11.png)
+![alt text](assets/image-11.png)
 
 
 #### Captura de la configuración del /etc/hosts y mostrando su funcionamiento:
 
 Archivo `/etc/hosts` configurado para que la ip privada local sea usada por el dominio pruebas:
-![alt text](image-12.png)
+![alt text](assets/image-12.png)
 
 Captura de evidencia en funcionamiento:
-![alt text](image-13.png)
+![alt text](assets/image-13.png)
 
 #### Captura de la web en funcionamiento:
-![alt text](image-14.png)
+![alt text](assets/image-14.png)
 
-![alt text](image-15.png)
+![alt text](assets/image-15.png)
 
 ### Fase 2: Transferencia de archivos por SFTP
 
@@ -290,13 +264,13 @@ Captura de evidencia en funcionamiento:
 #### Captura de conexión exitosa y en funcionamiento y pasando un fichero:
 
 En la captura podemos ver el directorio upload que es el del servidor sftp y además podemos ver como he subido un fichero con exito:
-![alt text](image-4.png)
+![alt text](assets/image-4.png)
 
 
 #### Captura de Filezilla mostrando la transferencia completada o los archivos ya presentes en el servidor remoto.
 
 En la captura podemos ver como he subido un fichero con exito:
-![alt text](image-4.png)
+![alt text](assets/image-4.png)
 
 
 
@@ -316,7 +290,7 @@ En la captura podemos ver como he subido un fichero con exito:
 
 Captura mostrando el comando ejecutando, y como podemos ver en la columna ports podemos ver la redirección.
 
-![alt text](image-16.png)
+![alt text](assets/image-16.png)
 
 
 #### Evidencia Cruzada: Una captura con Filezilla abierto a un lado (mostrando archivos en /upload) y el navegador al otro (mostrando localhost:8080), demostrando que son los mismos archivos.
@@ -328,18 +302,18 @@ No puedo mostrar la captura en pantallas divididas porque en macOS no me puedo d
 
 
 Web y carpeta sincronizadas:
-![alt text](image-19.png)
+![alt text](assets/image-19.png)
 
 
 Filezilla dentro de la carpeta upload (la ip es distinta porque me cambie de red):
-![alt text](image-18.png)
+![alt text](assets/image-18.png)
 
 
 #### Captura del navegador en la ruta http://localhost:8080/reloj mostrando el reloj funcionando.
 
 Captura mostrando la página del reloj en funcionamiento:
 
-![alt text](2026-01-14_12-14-13.png)
+![alt text](assets/2026-01-14_12-14-13.png)
 
 
 ### Fase 4: Seguridad HTTPS
@@ -355,11 +329,11 @@ Captura mostrando la página del reloj en funcionamiento:
 
 Captura del navegador mostrando que esto es un certificado autofirmado al entrar a la web:
 
-![alt text](image-20.png)
+![alt text](assets/image-20.png)
 
 
 #### Captura de la pestaña "Red" (Network) de las herramientas de desarrollador (F12) mostrando un código de estado 301 Moved Permanently al intentar entrar por HTTP.
 
 Captura del código de estado 301 al intentar entrar por http:
 
-![alt text](image-21.png)
+![alt text](assets/image-21.png)
